@@ -1,0 +1,92 @@
+package assignment_5;
+
+//abstract class because the payBill method has mentioned as abstract method 
+//its a super class
+abstract class RRPaymentServices {
+	double balance;
+	int customerID;
+	RRPaymentServices(double balance,int customerID){
+		this.balance=balance;
+		this.customerID=customerID;
+	}
+	void setBalance(double balance){
+		this.balance=balance;
+	}
+	double getBalance(){
+		return balance;
+	}
+	int getCustomerID(){
+		return customerID;
+	}
+	abstract void payBill(double amount);
+
+}
+//sub class it derives the abstract method
+class ShoppingPayment extends RRPaymentServices{
+	static int counter=1000;
+	String paymentID;
+	ShoppingPayment(double balance, int customerID) {
+		super(balance, customerID);
+	}
+	String getPaymentID(){
+		return paymentID;
+	}
+	//define abstract method
+	void payBill(double amount){
+		if(amount>balance)
+			System.out.println("Insufficient amount entered!!Please try again");
+		else if(amount<balance)
+			System.out.println("Excess amount entered!!Please try again");
+		else{
+			paymentID="S"+(counter+1);
+			System.out.println("Congratulations!!Your payment of"+amount +"is successsful! with payment id "+paymentID);
+			
+		}
+	}
+	
+}
+//sub class
+class CreditCardPayment extends RRPaymentServices{
+	static int counter=1000;
+	String paymentID;
+	double cashBack;
+	double balanceDue;
+	CreditCardPayment(double balance, int customerID) {
+		super(balance, customerID);
+	}
+	String getPaymentID(){
+		return paymentID;
+	}
+	double getCashBack(){
+		return cashBack;
+	}
+	double getBalanceDue(){
+		return balanceDue;
+	}
+	void payBill(double amount){
+		if(amount>balance)
+			cashBack=amount-balance;
+		else if(amount<balance)
+			balanceDue=balance-amount;
+		paymentID="C"+(counter+1);
+		System.out.println("Congratulations!!You have successfully made a payment of "+amount +". Payment Details are-");
+		System.out.println("Customer ID:" +customerID);
+		System.out.println("Payment ID:" +paymentID);
+		System.out.println("Previous Due:" +balance);
+		System.out.println("Remaining Due:" +balanceDue);
+		System.out.println("CashBack vallet Balance:" +cashBack);
+		
+	}
+}
+public class PaymentServices{
+	public static void main(String[] args){
+		//create an object for Creditcard payment
+		RRPaymentServices rrpone=new CreditCardPayment(10000.23,5001);
+		rrpone.payBill(5000);
+		System.out.println();
+		//create an object for shopping payment
+		RRPaymentServices rrptwo=new ShoppingPayment(5000,561328);
+		rrptwo.payBill(5000);
+		
+	}
+}
