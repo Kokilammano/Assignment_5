@@ -1,0 +1,133 @@
+package Assignment_5;
+//super class
+class EventRegistration{
+	String name;
+	String nameOfEvent;
+	double registrationFee;
+	//Parameterized constructor
+	EventRegistration(String name,String nameOfEvent){
+		this.name=name;
+		this.nameOfEvent=nameOfEvent;
+	}
+	String getName(){
+		return name;
+	}
+	void setName(String name){
+		this.name=name;
+	}
+	String getNameOfEvent(){
+		return nameOfEvent;
+	}
+	void setNameOfEvent(String nameOfEvent){
+		this.nameOfEvent=nameOfEvent;
+	}
+	double getRegistrationFee(){
+		return registrationFee;
+	}
+	void setRegistrationFee(double registrationFee){
+		this.registrationFee=registrationFee;
+	}
+	//decide the registration fee according to the event
+	void registerEvent(){
+		switch(nameOfEvent){
+		case "ShakeALeg":
+			registrationFee=100;
+			break;
+		case "Sing&Win":
+			registrationFee=150;
+			break;
+		case "Actathon":
+			registrationFee=70;
+			break;
+		case "PlayAway":
+			registrationFee=130;
+			break;
+		default:
+			System.out.println("Please enter valid Event");
+			break;
+		}
+	}
+}
+//sub class of EventRegistration
+class SingleEventRegistration extends EventRegistration{
+	int participantNo;
+	//parameterized constructor
+	SingleEventRegistration(String name, String nameOfEvent,int participantNo) {
+		//use of super keyword because of super class has parameterized constructor
+		super(name, nameOfEvent);
+		this.participantNo=participantNo;
+	}
+	int getParticipantNo(){
+		return participantNo;
+	}
+	void setParticipantNo(int participantNo){
+		this.participantNo=participantNo;
+	}
+	//display the outputs
+	void registerEvent(){
+		super.registerEvent();
+		System.out.println("Thank you" +name +"for your participation.Your registration fee is:"+registrationFee);
+		System.out.println("You are participant no:"+participantNo);
+	}	
+}
+//sub class
+class TeamEventRegistration extends EventRegistration{
+	int noOfParticipants;
+	int teamNo;
+	TeamEventRegistration(String name, String nameOfEvent,int noOfParticipants,int teamNo) {
+		//use of super keyword because of super class has parameterized constructor
+		super(name, nameOfEvent);
+		this.noOfParticipants=noOfParticipants;
+		this.teamNo=teamNo;
+	}
+	int getNoOfParticipants(){
+		return noOfParticipants;
+	}
+	void setNoOfParticipants(int noOfParticipants){
+		this.noOfParticipants=noOfParticipants;
+	}
+	int getTeamNo(){
+		return teamNo;
+	}
+	void setTeamNo(int teamNo){
+		this.teamNo=teamNo;
+	}
+	void registerEvent(){
+		switch(nameOfEvent){
+		case "ShakeALeg":
+			registrationFee=noOfParticipants*50;
+			break;
+		case "Sing&Win":
+			registrationFee=noOfParticipants*60;
+			break;
+		case "Actathon":
+			registrationFee=noOfParticipants*80;
+			break;
+		case "PlayAway":
+			registrationFee=noOfParticipants*100;
+			break;
+		default:
+			System.out.println("Please enter valid Event");
+			break;
+		}
+		System.out.println("Thank you" +name +"for your participation.Your registration fee is:"+registrationFee);
+		System.out.println("You are participant no:"+teamNo);
+	}
+	
+}
+public class ShowYourTalentRegistration {
+
+	public static void main(String[] args) {
+		//create an object for single event registeration
+		SingleEventRegistration participant1=new SingleEventRegistration("Jenny","Sing&Win",1);
+		participant1.registerEvent();
+		//create an object for team event registeration
+		TeamEventRegistration team1=new TeamEventRegistration("Aura","ShakeALeg",5,1);
+		team1.registerEvent();
+		//create an object for single event registeration
+		SingleEventRegistration participant2=new SingleEventRegistration("Hudson","PlayAway",2);
+		participant2.registerEvent();
+
+	}
+
+}
